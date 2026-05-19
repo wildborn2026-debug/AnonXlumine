@@ -23,6 +23,11 @@ class Config:
         self.SESSION2 = getenv("SESSION2", None)
         self.SESSION3 = getenv("SESSION3", None)
 
+        self.API_URL = getenv("API_URL", "https://pvtz.nexgenbots.xyz")
+        self.VIDEO_API_URL = getenv("VIDEO_API_URL", "https://api.video.nexgenbots.xyz")
+        self.API_KEY = getenv("API_KEY", None) # Get this value from https://console.nexgenbots.xyz
+        
+
         self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/FallenAssociation")
         self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/DevilsHeavenMF")
 
