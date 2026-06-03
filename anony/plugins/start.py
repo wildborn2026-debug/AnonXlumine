@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 # This file is part of AnonXMusic
 
-
 import time
 import asyncio
 
@@ -62,8 +61,32 @@ async def start(_, message: types.Message):
     if private:
         await utils.send_log(message)
         if await db.is_user(message.from_user.id):
+            if len(message.command) > 1 and message.command[1] == "reward":
+                await asyncio.sleep(1)
+                await message.reply_text(
+                    "🎉 <b>Get Reward Points</b>\n\n"
+                    "Add this bot to your group and earn reward points instantly after verification."
+                    "\n\n"
+                    "<blockquote>"
+                    "🎉 ဆုလာဘ် အမှတ်များ ရယူပါ\n\n"
+                    "ဤ Bot ကို သင့် Telegram Group ထဲသို့ ထည့်ပြီး "
+                    "စစ်ဆေးအတည်ပြုပြီးနောက် ဆုလာဘ်အမှတ်များကို ရယူနိုင်ပါသည်။"
+                    "</blockquote>"
+                )
             return
         await db.add_user(message.from_user.id)
+        if len(message.command) > 1 and message.command[1] == "reward":
+            await asyncio.sleep(1)
+            await message.reply_text(
+                "🎉 <b>Get Reward Points</b>\n\n"
+                "Add this bot to your group and earn reward points instantly after verification."
+                "\n\n"
+                "<blockquote>"
+                "🎉 ဆုလာဘ် အမှတ်များ ရယူပါ\n\n"
+                "ဤ Bot ကို သင့် Telegram Group ထဲသို့ ထည့်ပြီး "
+                "စစ်ဆေးအတည်ပြုပြီးနောက် ဆုလာဘ်အမှတ်များကို ရယူနိုင်ပါသည်။"
+                "</blockquote>"
+            )
     else:
         if await db.is_chat(message.chat.id):
             return
