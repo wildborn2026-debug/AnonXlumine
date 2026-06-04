@@ -38,16 +38,15 @@ async def _broadcast(_, message: types.Message):
 
     await msg.forward(app.logger)
     await (await app.send_message(
-        chat_id=app.logger, 
+        chat_id=app.logger,
         text=message.lang["gcast_log"].format(
             message.from_user.id,
             message.from_user.mention,
             message.text,
         )
     )).pin(disable_notification=False)
-    await asyncio.sleep(5)
 
-    failed = ""
+    failed = []
     for chat in chats:
         if not broadcasting:
             await sent.edit_text(message.lang["gcast_stopped"].format(count, ucount))
@@ -63,17 +62,16 @@ async def _broadcast(_, message: types.Message):
                 count += 1
             else:
                 ucount += 1
-            await asyncio.sleep(0.1)
         except errors.FloodWait as fw:
-            await asyncio.sleep(fw.value + 30)
+            await asyncio.sleep(fw.value)
         except Exception as ex:
-            failed += f"{chat} - {ex}\n"
+            failed.append(f"{chat} - {ex}")
             continue
 
     text = message.lang["gcast_end"].format(count, ucount)
     if failed:
         with open("errors.txt", "w") as f:
-            f.write(failed)
+            f.write("\n".join(failed))
         await message.reply_document(
             document="errors.txt",
             caption=text,
